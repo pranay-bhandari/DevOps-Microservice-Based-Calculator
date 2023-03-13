@@ -1,0 +1,78 @@
+@import url('link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600 rel="stylesheet');
+
+h2 {
+    font-family: 'Montserrat';
+    /* color: rgb(0, 0, 0); */
+    text-align: center;
+    background: -webkit-linear-gradient(#eee, #333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+body {
+    background-image: url("assets/6.jpg");
+    color: rgb(250, 251, 248);
+    font-size: 25px;
+    background-size: cover;
+
+}
+
+.title {
+    background-color: 2b3324;
+    text-align: center;
+    padding: 10px 0px;
+    /* width: fit-content; */
+    /* margin: 100px auto;
+    display: block; */
+}
+
+/* p{color: black} */
+
+
+.card {
+    background-color: rgb(221, 213, 203);
+    width: 50%;
+    margin: 100px auto;
+    display: block;
+    /* box-shadow: 10px 10px 5px #aaaaaa; */
+}
+
+
+input[type=number],select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #788267;
+    color: rgb(255, 255, 255);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type=submit]:hover {
+    background-color: #788267;
+    color:#ffffff
+}
+
+.content {
+    border-radius: 5px;
+    background-color: rgb(221, 213, 203);
+    padding: 20px;
+    width: 90%;
+    display:block;
+    margin:0px auto;
+    margin-bottom: 8px;
+
+}

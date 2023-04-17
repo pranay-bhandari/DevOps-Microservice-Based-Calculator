@@ -1,0 +1,142 @@
+<html>
+
+<head>
+    <title> PAV </title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600 rel="stylesheet');
+
+        h2 {
+            font-family: 'Montserrat';
+            /* color: rgb(0, 0, 0); */
+            text-align: center;
+            background: -webkit-linear-gradient(#eee, #333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+        }
+
+        body {
+            /* background-image: url("https://www.pexels.com/photo/cheat-sheet-hidden-in-a-calculator-7092596/"); */
+            color: rgb(250, 251, 248);
+            background-color: #788267;
+
+            font-size: 25px;
+            background-size: cover;
+
+        }
+
+        .title {
+            background-color: 2b3324;
+            text-align: center;
+            padding: 10px 0px;
+            /* width: fit-content; */
+            /* margin: 100px auto;
+    display: block; */
+        }
+
+        /* p{color: black} */
+
+
+        .card {
+            background-color: rgb(221, 213, 203);
+            width: 50%;
+            margin: 100px auto;
+            display: block;
+            /* box-shadow: 10px 10px 5px #aaaaaa; */
+        }
+
+
+        input[type=number],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #788267;
+            color: rgb(255, 255, 255);
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        input[type=submit]:hover {
+            background-color: #788267;
+            color: #ffffff
+        }
+
+        .content {
+            border-radius: 5px;
+            background-color: rgb(221, 213, 203);
+            padding: 20px;
+            width: 90%;
+            display: block;
+            margin: 0px auto;
+            margin-bottom: 8px;
+
+        }
+
+        .output {
+            width: 100%;
+            height: 85px;
+            background-color: white;
+            color: #000;
+            border-radius: 10px;
+
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="card">
+
+        <div class="title">
+            <h2 style="text-align:center;">MICROSERVICE BASED CALCULATOR</h2>
+
+            <div class="content">
+                <form action="" method="POST">
+
+                    <input type="number" name="first" step="any" placeholder="Enter the First Number">
+                    <input type="number" name="second" step="any" placeholder="Enter the Second Number">
+                    <select id="op" name="operation" placeholder="Operation">
+                        <option value="add">Addition</option>
+                        <option value="minus">Subtraction</option>
+                        <option value="multiply">Multiplication</option>
+                        <option value="divide">Division</option>
+                        <option value="gcd">GCD</option>
+                        <option value="lcm">LCM</option>
+                        <option value="exponent">Exponent</option>
+                    </select>
+
+                    <input type="submit" value="SUBMIT">
+                </form>
+                <div class="output">
+                    {% for message in get_flashed_messages() %}
+                    {{message}}
+                    {% endfor %}
+                </div>
+                
+            </div>
+
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

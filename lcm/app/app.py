@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for, jso
 from flask_restful import Resource, Api
 import math
 
-app = Flask(_name_)
+app = Flask(__name__)
 app.secret_key = 'thisisjustarandomstring'
 api = Api(app)
 
@@ -14,7 +14,7 @@ class LCM(Resource):
 
 api.add_resource(LCM, '/<string:num1>/<string:num2>')
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(
         debug=True,
         port=5056,

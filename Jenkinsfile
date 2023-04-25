@@ -3,7 +3,6 @@ pipeline {
 	stages {
     	stage('Build') {
       		steps {
-				bat 'mvn clean package'
         		bat 'docker-compose build'
 				bat 'docker-compose up -d'
 			}

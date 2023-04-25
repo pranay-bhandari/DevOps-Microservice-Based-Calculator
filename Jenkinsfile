@@ -7,10 +7,8 @@ pipeline {
 				bat 'docker-compose up -d'
 			}
 		}
-	}
-}
-
-stage('SonarQube Analysis') {
+	
+		stage('SonarQube Analysis') {
 			steps {
 				withSonarQubeEnv('sonarserver') {
 					bat 'msbuild /t:Rebuild'
@@ -19,4 +17,5 @@ stage('SonarQube Analysis') {
 			}
 		}
 	}
-}
+
+

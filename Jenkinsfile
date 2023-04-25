@@ -9,3 +9,14 @@ pipeline {
 		}
 	}
 }
+
+stage('SonarQube Analysis') {
+			steps {
+				withSonarQubeEnv('SonarQube Server') {
+					bat 'msbuild /t:Rebuild'
+					sonarqube analysis
+				}
+			}
+		}
+	}
+}

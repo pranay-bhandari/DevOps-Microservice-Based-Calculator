@@ -9,10 +9,9 @@ pipeline {
 		}
 	
 		stage('SonarQube Analysis') {
-			steps {
-				withSonarQubeEnv('sonarserver') {
-					bat 'msbuild /t:Rebuild'
-					sonarqube analysis
+    	def scannerHome = tool 'SonarScanner';
+   		 withSonarQubeEnv() {
+      	bat "${scannerHome}/bin/sonar-scanner"
 				}
 			}
 		}

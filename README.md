@@ -1,4 +1,4 @@
-<H1>MICROSERVICES BASED WEB APPLICATION - ARITHMETIIC CALCULATOR</H1>
+<H1>MICROSERVICES BASED WEB APPLICATION - ARITHMETIC CALCULATOR</H1>
 This is a microservices-based web application for arithmetic calculations. The application is built using modern web development technologies and principles, including microservices architecture, containerization, and DevOps practices.
 
 Features<br/>
@@ -16,7 +16,6 @@ Technologies used<br/>
 5. GitHub Actions for continuous integration and deployment<br/>
 6. Jira for project management and issue tracking<br/>
 7. Kanban for task tracking and collaboration<br/>
-8. Slack for team communication and notifications<br/>
 
 Getting started
 To run this project using Docker, you can follow these steps:

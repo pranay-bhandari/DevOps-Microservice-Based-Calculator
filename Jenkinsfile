@@ -12,7 +12,7 @@ pipeline {
 
 stage('SonarQube Analysis') {
 			steps {
-				withSonarQubeEnv('SonarQube Server') {
+				withSonarQubeEnv('sonarserver') {
 					bat 'msbuild /t:Rebuild'
 					sonarqube analysis
 				}

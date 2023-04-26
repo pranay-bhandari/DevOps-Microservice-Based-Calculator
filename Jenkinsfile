@@ -1,24 +1,25 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                bat 'docker-compose build'
-                bat 'docker-compose up -d'
-            }
-        }
-        stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'SonarQube Scanner'
-            }
-            steps {
-                withSonarQubeEnv('sonarserver') {
-                    script {
-                        def scannerCmd = "${scannerHome}/bin/sonar-scanner"
-                        bat "${scannerCmd} -Dsonar.login=${env.SONAR_LOGIN}"
-                    }
-                }
-            }
-        }
+  agent any
+  tools {
+    // define SonarQube Scanner
+    sonarqubeScanner 'SonarQube'
+  }
+  stages {
+    stage('Build') {
+      steps {
+        bat 'docker-compose build'
+        bat 'docker-compose up -d'
+      }
     }
+    stage('SonarQube Analysis') {
+      steps {
+        withSonarQubeEnv('sonarsever') {
+          dir("\"${workspace}\"") {
+            bat 'dotnet build'
+            bat "sonar-scanner -Dsonar.login=${env.SONAR_LOGIN}"
+          }
+        }
+      }
+    }
+  }
 }

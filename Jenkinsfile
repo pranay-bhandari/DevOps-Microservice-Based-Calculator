@@ -19,8 +19,8 @@ pipeline {
 						bat 'sonar-scanner.bat \
 						     -Dsonar.projectKey=DevOps \
 						     -Dsonar.sources=. \
-						     -Dsonar.host.url=http://sonarqube-server:9000 \
-						     -Dsonar.login='sqp_ed97c0184cad643ae982d46a518ee9ed4892df5e' \
+						     -Dsonar.host.url=http://192.168.85.1:9000/ \
+						     -Dsonar.login='squ_971d22c4c6eeadec4d6ca3bf2959ff05aedeb356' \
 					}
 				}
 			}

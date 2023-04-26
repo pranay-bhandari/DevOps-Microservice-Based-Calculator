@@ -2,7 +2,7 @@ pipeline {
   	agent any
   	tools {
     	dotnet 'dotnet'
-    	sonarqube 'SonarQube Scanner'
+    	sonarqube 'SonarQube_Scanner'
   	}
   	stages {
     	stage('Build') {

@@ -1,7 +1,7 @@
 pipeline {
 	agent any
 	stages {
-		stage('Build') {
+		stage('Maven Build') {
 			steps {
 				bat 'docker-compose build'
 				bat 'docker-compose up -d'

@@ -20,7 +20,7 @@ pipeline {
 						     -Dsonar.projectKey=DevOps \
 						     -Dsonar.sources=. \
 						     -Dsonar.host.url=http://sonarqube-server:9000 \
-						     -Dsonar.login=sqp_ed97c0184cad643ae982d46a518ee9ed4892df5e \
+						     -Dsonar.login='sqp_ed97c0184cad643ae982d46a518ee9ed4892df5e' \
 					}
 				}
 			}

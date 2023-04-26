@@ -8,11 +8,11 @@ pipeline {
 			}
 		}
 	
-		stage('SonarQube Analysis') {
-			steps {
-				withSonarQubeEnv('sonarserver') {
-					bat 'msbuild /t:Rebuild'
-					sonarqube analysis
+		stage('SonarQube analysis') {
+      		steps {
+        // Add SonarQube scanner step
+        withSonarQubeEnv('My SonarQube Server') {
+          bat 'mvn clean package sonar:sonar'
 				}
 			}
 		}

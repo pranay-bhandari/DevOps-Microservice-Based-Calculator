@@ -1,9 +1,5 @@
 pipeline {
     agent any
-    environment {
-        SONAR_URL = "http://localhost:9000"
-        SONAR_LOGIN = credentials('sonarqube-token')
-    }
     stages {
         stage('Build') {
             steps {
@@ -11,18 +7,18 @@ pipeline {
                 bat 'docker-compose up -d'
             }
         }
-    
         stage('SonarQube Analysis') {
+            environment {
+                scannerHome = tool 'SonarQube Scanner'
+            }
             steps {
                 withSonarQubeEnv('sonarserver') {
-                    bat 'dotnet build'
-                    bat "sonar-scanner \
-                        -Dsonar.projectKey=DevOps \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=${env.SONAR_URL} \
-                        -Dsonar.login=${env.SONAR_LOGIN}'
+                    script {
+                        def scannerCmd = "${scannerHome}/bin/sonar-scanner"
+                        bat "${scannerCmd} -Dsonar.login=${env.SONAR_LOGIN}"
+                    }
                 }
             }
-		}
-	}
+        }
+    }
 }

@@ -28,7 +28,7 @@ pipeline {
 
         stage('Start Prometheus') {
             steps {
-                bat 'docker run -d -p 9090:9090 --name prometheus prom/prometheus'
+                bat 'docker run -d -p 9092:9092 --name prometheus prom/prometheus'
             }
         }
 

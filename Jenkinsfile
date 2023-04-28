@@ -28,7 +28,7 @@ pipeline {
 
         stage('Start Prometheus') {
             steps {
-                sh 'docker run -d -p 9090:9090 --name prometheus prom/prometheus'
+                bat 'docker run -d -p 9090:9090 --name prometheus prom/prometheus'
             }
         }
 
@@ -37,21 +37,21 @@ pipeline {
                 PROMETHEUS_PORT = 9090
             }
             steps {
-                sh 'docker run -d -p ${PROMETHEUS_PORT}:3000 --name grafana grafana/grafana'
-                sh 'sleep 10s'
-                sh 'curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"db\",\"type\":\"prometheus\",\"url\":\"http://192.168.85.1:${PROMETHEUS_PORT}\",\"access\":\"proxy\",\"isDefault\":true}" http://admin:pranay@1234@192.168.85.1:3000/api/datasources'
-                sh 'curl -X POST -H "Content-Type: application/json" -d "{\"dashboard\":{\"id\":null,\"title\":\"${JOB_NAME}-${BUILD_NUMBER}\",\"tags\":[\"devops\"],\"timezone\":\"browser\",\"schemaVersion\":21,\"panels\":[{\"id\":1,\"gridPos\":{\"x\":0,\"y\":0,\"w\":12,\"h\":8},\"type\":\"graph\",\"title\":\"Panel Title\",\"datasource\":\"db\",\"targets\":[{\"expr\":\"up\",\"legendFormat\":\"\",\"refId\":\"A\"}],\"xaxis\":{\"mode\":\"time\",\"show\":true},\"yaxes\":[{\"format\":\"short\",\"show\":true},{\"format\":\"short\",\"show\":true}]},{\"collapsed\":false,\"gridPos\":{\"h\":2,\"w\":24,\"x\":0,\"y\":8},\"id\":2,\"panels\":[],\"title\":\"\",\"type\":\"row\"}],\"version\":0,\"links\":[]},\"overwrite\":false}" http://admin:pranay@1234@:192.168.85.1:3000/api/dashboards/db'
+                bat 'docker run -d -p ${PROMETHEUS_PORT}:3000 --name grafana grafana/grafana'
+                bat 'sleep 10s'
+                bat 'curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"db\",\"type\":\"prometheus\",\"url\":\"http://192.168.85.1:${PROMETHEUS_PORT}\",\"access\":\"proxy\",\"isDefault\":true}" http://admin:pranay@1234@192.168.85.1:3000/api/datasources'
+                bat 'curl -X POST -H "Content-Type: application/json" -d "{\"dashboard\":{\"id\":null,\"title\":\"${JOB_NAME}-${BUILD_NUMBER}\",\"tags\":[\"devops\"],\"timezone\":\"browser\",\"schemaVersion\":21,\"panels\":[{\"id\":1,\"gridPos\":{\"x\":0,\"y\":0,\"w\":12,\"h\":8},\"type\":\"graph\",\"title\":\"Panel Title\",\"datasource\":\"db\",\"targets\":[{\"expr\":\"up\",\"legendFormat\":\"\",\"refId\":\"A\"}],\"xaxis\":{\"mode\":\"time\",\"show\":true},\"yaxes\":[{\"format\":\"short\",\"show\":true},{\"format\":\"short\",\"show\":true}]},{\"collapsed\":false,\"gridPos\":{\"h\":2,\"w\":24,\"x\":0,\"y\":8},\"id\":2,\"panels\":[],\"title\":\"\",\"type\":\"row\"}],\"version\":0,\"links\":[]},\"overwrite\":false}" http://admin:pranay@1234@:192.168.85.1:3000/api/dashboards/db'
             }
         }
     }
 
     post {
         always {
-            sh 'docker-compose down'
-            sh 'docker stop prometheus'
-            sh 'docker rm prometheus'
-            sh 'docker stop grafana'
-            sh 'docker rm grafana'
+            bat 'docker-compose down'
+            bat 'docker stop prometheus'
+            bat 'docker rm prometheus'
+            bat 'docker stop grafana'
+            bat 'docker rm grafana'
         }
     }
 }

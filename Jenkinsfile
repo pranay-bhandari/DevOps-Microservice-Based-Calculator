@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PROMETHEUS_PORT = 1234
+        PROMETHEUS_PORT = 9090
         SCANNER_HOME = tool 'SonarQube_Scanner'
     }
     stages {
@@ -28,7 +28,7 @@ pipeline {
                     }
                     def jobName = env.JOB_NAME.replace('/', '_')
                     def buildName = env.BUILD_NUMBER
-                    sh "echo 'jenkins_job_build_info{job_name=\"${jobName}\",build_name=\"${buildName}\"} 1' | curl --data-binary @- http://localhost:${PROMETHEUS_PORT}/metrics/job/${jobName}/build/${buildName}"
+                    sh "echo 'jenkins_job_build_info{job_name=\"${jobName}\",build_name=\"${buildName}\"} 1' | curl --data-binary @- http://192.168.85.1:${PROMETHEUS_PORT}/metrics/job/${jobName}/build/${buildName}"
                 }
             }
         }
@@ -40,9 +40,9 @@ pipeline {
                 def buildName = env.BUILD_NUMBER
                 def buildUrl = env.BUILD_URL.replace(env.JENKINS_URL, "")
 
-                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"dashboard\": {\"title\": \"${jobName}-${buildName}\"}, \"folderId\": 0, \"overwrite\": true}' http://admin:pranay@1234@localhost:3000/api/dashboards/db"
+                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"dashboard\": {\"title\": \"${jobName}-${buildName}\"}, \"folderId\": 0, \"overwrite\": true}' http://admin:pranay@1234@192.168.85.1:3000/api/dashboards/db"
 
-                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"title\": \"Build Metrics\", \"targets\": [{\"expr\": \"jenkins_job_build_info{job_name=\\\"${jobName}\\\", build_name=\\\"${buildName}\\\"}\"}], \"panels\": [{\"title\": \"Build Info\", \"type\": \"stat\", \"targets\": [{\"expr\": \"jenkins_job_build_info{job_name=\\\"${jobName}\\\", build_name=\\\"${buildName}\\\"}\"}]}]}' http://admin:pranay@1234@localhost:3000/api/dashboards/db/${jobName}-${buildName}/panel"
+                sh "curl -X POST -H 'Content-Type: application/json' -d '{\"title\": \"Build Metrics\", \"targets\": [{\"expr\": \"jenkins_job_build_info{job_name=\\\"${jobName}\\\", build_name=\\\"${buildName}\\\"}\"}], \"panels\": [{\"title\": \"Build Info\", \"type\": \"stat\", \"targets\": [{\"expr\": \"jenkins_job_build_info{job_name=\\\"${jobName}\\\", build_name=\\\"${buildName}\\\"}\"}]}]}' http://admin:pranay@1234@192.168.85.1:3000/api/dashboards/db/${jobName}-${buildName}/panel"
             }
         }
     }

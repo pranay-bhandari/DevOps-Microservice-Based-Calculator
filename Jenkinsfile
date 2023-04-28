@@ -34,7 +34,7 @@ pipeline {
 
         stage('Create Grafana Dashboard') {
             environment {
-                PROMETHEUS_PORT = 9090
+                PROMETHEUS_PORT = 1234
             }
             steps {
                 bat 'docker run -d -p ${PROMETHEUS_PORT}:3000 --name grafana grafana/grafana'

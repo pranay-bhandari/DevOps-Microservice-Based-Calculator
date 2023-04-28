@@ -1,79 +1,57 @@
 pipeline {
-	agent any
-	stages {
-		stage('Maven Build') {
-			steps {
-				bat 'docker-compose build'
-				bat 'docker-compose up -d'
-			}
-		}
+    agent any
+    stages {
+        stage('Maven Build') {
+            steps {
+                bat 'docker-compose build'
+                bat 'docker-compose up -d'
+            }
+        }
 
-		stage('SonarQube Analysis') {
-			environment {
-				SCANNER_HOME = tool 'SonarQube_Scanner'
-			}
-			steps {
-				script {
-					def scannerHome = tool 'SonarQube_Scanner'
-					withEnv(["PATH+SCANNER=${scannerHome}\\bin"]) {
-						bat 'sonar-scanner.bat \
-						     -Dsonar.projectKey=DevOps \
-						     -Dsonar.sources=. \
-						     -Dsonar.host.url=http://192.168.85.1:9000/ \
-						     -Dsonar.login=squ_971d22c4c6eeadec4d6ca3bf2959ff05aedeb356'
-					}
-
-			stage('Prometheus Metrics Collection') {
-    steps {
-        prometheus([
-            prometheusGlobalConfig: [
-                prometheusJobBuildTimestamp: true,
-                prometheusJobUrl: true,
-                prometheusMetricsPath: '/prometheus',
-                prometheusPushGatewayUrl: 'http://192.168.85.1:9090'
-            ],
-            prometheusJobConfig: [
-                jobName: 'project-pipeline',
-                scrapeInterval: 1
-            ]
-        ])}
-    
-				}
-			}
-		}
-	}
-}
-
-post {
-    always {
-        grafana(
-            url: 'http://192.168.85.1:3000',
-            grafanaUrl: 'http://192.168.85.1:9090',
-            dataSourceName: 'Prometheus',
-            grafanaFolderId: 1,
-            dashboard: """
-                {
-                    "title": "db",
-                    "rows": [
-                        {
-                            "title": "My Metric",
-                            "panels": [
-                                {
-                                    "title": "My Panel",
-                                    "targets": [
-                                        {
-                                            "query": "my_metric",
-                                            "refId": "A"
-                                        }
-                                    ],
-                                    "type": "graph",
-                                    "span": 12
-                                }
-                            ]
-                        }
-                    ]
+        stage('SonarQube Analysis') {
+            environment {
+                SCANNER_HOME = tool 'SonarQube_Scanner'
+            }
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube_Scanner'
+                    withEnv(["PATH+SCANNER=${scannerHome}\\bin"]) {
+                        bat 'sonar-scanner.bat \
+                             -Dsonar.projectKey=DevOps \
+                             -Dsonar.sources=. \
+                             -Dsonar.host.url=http://192.168.85.1:9000/ \
+                             -Dsonar.login=squ_971d22c4c6eeadec4d6ca3bf2959ff05aedeb356'
+                    }
                 }
-            """
-        )
+            }
+        }
+
+        stage('Start Prometheus') {
+            steps {
+                sh 'docker run -d -p 9090:9090 --name prometheus prom/prometheus'
+            }
+        }
+
+        stage('Create Grafana Dashboard') {
+            environment {
+                PROMETHEUS_PORT = 9090
+            }
+            steps {
+                sh 'docker run -d -p ${PROMETHEUS_PORT}:3000 --name grafana grafana/grafana'
+                sh 'sleep 10s'
+                sh 'curl -X POST -H "Content-Type: application/json" -d "{\"name\":\"db\",\"type\":\"prometheus\",\"url\":\"http://192.168.85.1:${PROMETHEUS_PORT}\",\"access\":\"proxy\",\"isDefault\":true}" http://admin:pranay@1234@192.168.85.1:3000/api/datasources'
+                sh 'curl -X POST -H "Content-Type: application/json" -d "{\"dashboard\":{\"id\":null,\"title\":\"${JOB_NAME}-${BUILD_NUMBER}\",\"tags\":[\"devops\"],\"timezone\":\"browser\",\"schemaVersion\":21,\"panels\":[{\"id\":1,\"gridPos\":{\"x\":0,\"y\":0,\"w\":12,\"h\":8},\"type\":\"graph\",\"title\":\"Panel Title\",\"datasource\":\"db\",\"targets\":[{\"expr\":\"up\",\"legendFormat\":\"\",\"refId\":\"A\"}],\"xaxis\":{\"mode\":\"time\",\"show\":true},\"yaxes\":[{\"format\":\"short\",\"show\":true},{\"format\":\"short\",\"show\":true}]},{\"collapsed\":false,\"gridPos\":{\"h\":2,\"w\":24,\"x\":0,\"y\":8},\"id\":2,\"panels\":[],\"title\":\"\",\"type\":\"row\"}],\"version\":0,\"links\":[]},\"overwrite\":false}" http://admin:pranay@1234@:192.168.85.1:3000/api/dashboards/db'
+            }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker-compose down'
+            sh 'docker stop prometheus'
+            sh 'docker rm prometheus'
+            sh 'docker stop grafana'
+            sh 'docker rm grafana'
+        }
     }
 }

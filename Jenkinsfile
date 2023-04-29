@@ -7,15 +7,15 @@ pipeline {
     }
 
     stages {
-        stage('Maven Build') {
-            steps {
-                bat 'docker-compose build'
-                bat 'docker-compose up -d'
-            }
-        }
+        // stage('Maven Build') {
+        //     steps {
+        //         bat 'docker-compose build'
+        //         bat 'docker-compose up -d'
+        //     }
+        // }
         stage('Build maven-job') {
             steps {
-            build job: 'maven-job', propagate: true, wait: true
+            build job: 'mavenjob', propagate: true, wait: true
       }
     }
 

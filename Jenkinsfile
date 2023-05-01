@@ -52,7 +52,7 @@ pipeline {
             }
         }
 
-        stage('Tool-4\n\nGrafana') {
+        stage('Tool-4 Grafana') {
             environment {
                 PROMETHEUS_PORT = 9090
                 API_KEY = 'eyJrIjoiMmdQUkFWNDVzUWVFSVpuNkZXdGpIWTMxNHExWEExSmIiLCJuIjoiRGV2T3BzIiwiaWQiOjF9'

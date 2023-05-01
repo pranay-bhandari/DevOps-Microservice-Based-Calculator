@@ -37,3 +37,5 @@ Contributions are welcome and encouraged! If you have any ideas, suggestions, or
 
 License
 This project is licensed under the MIT License. See the LICENSE file for further details.
+
+Thank You

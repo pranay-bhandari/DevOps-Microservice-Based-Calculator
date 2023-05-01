@@ -22,7 +22,8 @@ pipeline {
         
         }
 
-        stage('Tool-1\n\nMaven') {
+        stage('Tool-1')
+        stage('Maven') {
             steps {
             build job: 'mavenjob', propagate: true, wait: true
       }

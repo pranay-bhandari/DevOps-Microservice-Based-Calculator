@@ -13,13 +13,22 @@ pipeline {
         //         bat 'docker-compose up -d'
         //     }
         // }
-        stage('Build maven-job') {
+
+        stage('GitHub') {
+            steps {
+                // Checkout code from Github repository
+               git branch: 'main', url: 'https://github.com/pranay2173/DevOps-Microservice-Based-Calculator.git'
+            }
+        
+        }
+
+        stage('Tool-1 Maven') {
             steps {
             build job: 'mavenjob', propagate: true, wait: true
       }
     }
 
-        stage('SonarQube Analysis') {
+        stage('Tool-2 SonarQube') {
             environment {
                 SCANNER_HOME = tool 'SonarQube_Scanner'
             }
@@ -37,13 +46,13 @@ pipeline {
             }
         }
 
-        stage('Start Prometheus') {
+        stage('Tool-3 Prometheus') {
             steps {
                 bat 'docker run -d -p 9092:9092 --name prometheus prom/prometheus'
             }
         }
 
-        stage('Create Grafana Dashboard') {
+        stage('Tool-4 Grafana') {
             environment {
                 PROMETHEUS_PORT = 9090
                 API_KEY = 'eyJrIjoiMmdQUkFWNDVzUWVFSVpuNkZXdGpIWTMxNHExWEExSmIiLCJuIjoiRGV2T3BzIiwiaWQiOjF9'

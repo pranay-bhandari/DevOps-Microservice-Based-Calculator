@@ -10,7 +10,7 @@
 
   <name>demo</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://192.168.85.1:5050/</url>
+  <url>http://172.24.96.1:5050/</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

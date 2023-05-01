@@ -22,7 +22,7 @@ pipeline {
         
         }
 
-        stage('Tool-1' /n 'Maven') {
+        stage('Tool-1\n\nMaven') {
             steps {
             build job: 'mavenjob', propagate: true, wait: true
       }
@@ -52,7 +52,7 @@ pipeline {
             }
         }
 
-        stage('Tool-4' /n 'Grafana') {
+        stage('Tool-4\n\nGrafana') {
             environment {
                 PROMETHEUS_PORT = 9090
                 API_KEY = 'eyJrIjoiMmdQUkFWNDVzUWVFSVpuNkZXdGpIWTMxNHExWEExSmIiLCJuIjoiRGV2T3BzIiwiaWQiOjF9'

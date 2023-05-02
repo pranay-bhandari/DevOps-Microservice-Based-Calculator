@@ -16,8 +16,8 @@ pipeline {
 
         stage('GitHub') {
             steps {
-                // Checkout code from Github repository
-               git branch: 'main', url: 'https://github.com/pranay2173/DevOps-Microservice-Based-Calculator.git'
+                bat 'docker-compose build'
+                bat 'docker-compose up -d'
             }
         
         }

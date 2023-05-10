@@ -39,7 +39,7 @@ pipeline {
                         bat 'sonar-scanner.bat \
                              -Dsonar.projectKey=DevOps \
                              -Dsonar.sources=. \
-                             -Dsonar.host.url=http://192.168.217.102:9000/ \
+                             -Dsonar.host.url=http://172.21.240.1:9000/ \
                              -Dsonar.login=squ_737564de5a7322c7127fbaffc50cc990856ff108'
                     }
                 }

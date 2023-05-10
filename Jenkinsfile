@@ -45,6 +45,8 @@ pipeline {
                 }
             }
         }
+    }
+
 
 //         stage('Tool-3 Prometheus') {
 //             steps {
@@ -68,7 +70,7 @@ pipeline {
 //                     http://admin:${API_KEY}@192.168.217.102:3000/api/dashboards/db"
 //             }
 //         }
-    }
+    // }
 
 //     post {
 //         always {

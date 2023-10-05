@@ -40,7 +40,7 @@ pipeline {
                              -Dsonar.projectKey=DevOps \
                              -Dsonar.sources=. \
                              -Dsonar.host.url=http://172.30.64.1:9000/ \
-                             -Dsonar.login=squ_737564de5a7322c7127fbaffc50cc990856ff108'
+                             -Dsonar.login=squ_fd33e33a50222aa3bf2a0c630057026f9859a241'
                     }
                 }
             }

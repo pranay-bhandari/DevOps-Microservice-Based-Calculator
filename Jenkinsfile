@@ -34,12 +34,14 @@ pipeline {
             }
             steps {
                 script {
-                    withEnv(["PATH+SCANNER=${SCANNER_HOME}\\bin"]) {
-                bat '''sonar-scanner.bat ^
-                     -Dsonar.projectKey=DevOps_Project ^
-                     -Dsonar.sources=. ^
-                     -Dsonar.host.url=http://192.168.1.39:9000/ ^
-                     -Dsonar.login=sqp_b6c697761db068f207731fb0bbe2ee178da62555'''
+                    def scannerHome = tool 'SonarQube_Scanner'
+                    withEnv(["PATH+SCANNER=${scannerHome}\\bin"]) {
+                        bat 'sonar-scanner.bat \
+                             -Dsonar.projectKey=DevOps \
+                             -Dsonar.sources=. \
+                             -Dsonar.host.url=http://192.168.1.39:9000/ \
+                             -Dsonar.login=sqp_b6c697761db068f207731fb0bbe2ee178da62555'
+                    
                     }
                 }
             }

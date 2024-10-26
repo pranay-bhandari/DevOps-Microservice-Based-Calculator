@@ -38,7 +38,7 @@ pipeline {
                     // withEnv(["PATH+SCANNER=${scannerHome}\\bin"]) {
                     //     bat 'sonar-scanner.bat \
                     withSonarQubeEnv() {
-      bat "${scannerHome}/bin/sonar-scanner"
+      bat "${scannerHome}/bin/sonar-scanner" \
                              -Dsonar.projectKey=DevOps_Project \
                              -Dsonar.sources=. \
                              -Dsonar.host.url=http://192.168.1.39:9000/ \

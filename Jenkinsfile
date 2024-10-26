@@ -7,20 +7,20 @@ pipeline {
     }
 
     stages {
-        // stage('Maven Build') {
-        //     steps {
-        //         bat 'docker-compose build'
-        //         bat 'docker-compose up -d'
-        //     }
-        // }
-
-        stage('GitHub') {
+        stage('Maven Build') {
             steps {
                 bat 'docker-compose build'
                 bat 'docker-compose up -d'
             }
-        
         }
+
+    //     stage('GitHub') {
+    //         steps {
+    //             bat 'docker-compose build'
+    //             bat 'docker-compose up -d'
+    //         }
+        
+    //     }
 
     //     stage('Tool-1 Maven') {
     //         steps {
@@ -37,10 +37,10 @@ pipeline {
                     def scannerHome = tool 'SonarQube_Scanner'
                     withEnv(["PATH+SCANNER=${scannerHome}\\bin"]) {
                         bat 'sonar-scanner.bat \
-                             -Dsonar.projectKey=DevOps_Project \
+                             -Dsonar.projectKey=DevOps \
                              -Dsonar.sources=. \
-                             -Dsonar.host.url=http://192.168.1.39:9000/ \
-                             -Dsonar.login=sqp_b6c697761db068f207731fb0bbe2ee178da62555'
+                             -Dsonar.host.url=http://172.30.64.1.1:9000/ \
+                             -Dsonar.login=squ_737564de5a7322c7127fbaffc50cc990856ff108'
                     }
                 }
             }
@@ -70,8 +70,9 @@ pipeline {
 //                     http://admin:${API_KEY}@192.168.217.102:3000/api/dashboards/db"
 //             }
 //         }
-//     }
     }
+
+
 
     post {
         always {
@@ -82,5 +83,4 @@ pipeline {
             // bat 'docker rm grafana'
         }
     }
-}
 }

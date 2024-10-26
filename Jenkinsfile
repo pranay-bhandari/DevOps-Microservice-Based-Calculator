@@ -76,7 +76,7 @@ pipeline {
 
     post {
         always {
-            bat 'docker-compose down'
+            // bat 'docker-compose down'
             // bat 'docker stop prometheus'
             // bat 'docker rm prometheus'
             // bat 'docker stop grafana'

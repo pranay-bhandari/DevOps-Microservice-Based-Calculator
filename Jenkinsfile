@@ -3,7 +3,7 @@ pipeline {
     
       environment {
         PATH = "/C:/Program Files/apache-maven-3.9.1-bin/apache-maven-3.9.1:$PATH"
-        JAVA_HOME = 'C:/Program Files/Java/jdk-17'
+        JAVA_HOME = 'C:/Program Files/Java/jdk-17/bin'
     }
 
     stages {

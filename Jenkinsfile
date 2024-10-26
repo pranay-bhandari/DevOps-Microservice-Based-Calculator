@@ -49,11 +49,11 @@ pipeline {
     
 
 
-        // stage('Tool-3 Prometheus') {
-        //     steps {
-        //         bat 'docker run -d -p 9092:9092 --name prometheus prom/prometheus'
-        //     }
-        // }
+        stage('Tool-3 Prometheus') {
+            steps {
+                bat 'docker run -d -p 9092:9092 --name prometheus prom/prometheus'
+            }
+        }
 
 //         stage('Tool-4 Grafana') {
 //             environment {

@@ -50,7 +50,7 @@ pipeline {
 
         stage('Tool-3 Prometheus') {
             steps {
-                bat 'docker run -d -p 9092:9092 --name prometheus prom/prometheus'
+                // bat 'docker run -d -p 9092:9092 --name prometheus prom/prometheus'
             }
         }
 
@@ -60,7 +60,7 @@ pipeline {
                 // API_KEY = 'eyJrIjoiMmdQUkFWNDVzUWVFSVpuNkZXdGpIWTMxNHExWEExSmIiLCJuIjoiRGV2T3BzIiwiaWQiOjF9'
             }
             steps {
-                bat 'docker run -d -p 3001:3000 --name grafana grafana/grafana'
+                // bat 'docker run -d -p 3001:3000 --name grafana grafana/grafana'
 //                 bat 'timeout /t 10 /nobreak'
                 bat "curl -X POST -H \"Content-Type: application/json\" \
                     -d '{\"name\":\"db\",\"type\":\"prometheus\",\"url\":\"http://192.168.1.39:9090\",\"access\":\"proxy\",\"isDefault\":true}' \

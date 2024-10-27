@@ -36,9 +36,9 @@ pipeline {
                 script {
                     def scannerHome = tool 'SonarQube_Scanner'
                     withEnv(["PATH+SCANNER=${scannerHome}\\bin"]) {
-                        bat sonar-scanner.bat \
+                        bat 'sonar-scanner.bat \
                              -Dsonar.projectKey=DevOps_Project \
-                             -Dsonar.sources= \
+                             -Dsonar.sources=. \
                              -Dsonar.host.url=http://192.168.1.39:9000/ \
                              -Dsonar.login=sqp_3a31307f93514b094779987d4551f12ccc11b658'
                     }
